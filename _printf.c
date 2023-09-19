@@ -36,21 +36,20 @@ static int print_str(const char *str)
  */
 static int print_int(int n)
 {
-        int printed_chars = 0;
+	int printed_chars = 0;
 
-        if (n < 0)
-        {
-                printed_chars += print_char('-');
-                n = -n;
-        }
+	if (n < 0)
+	{
+		printed_chars += print_char('-');
+		n = -n;
+	}
+	if (n / 10)
+	{
+		printed_chars += print_int(n / 10);
+	}
+	printed_chars += print_char((n % 10) + '0');
 
-        if (n / 10)
-        {
-                printed_chars += print_int(n / 10);
-        }
-        printed_chars += print_char((n % 10) + '0');
-
-        return (printed_chars);
+	return (printed_chars);
 }
 
 /**
