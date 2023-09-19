@@ -39,6 +39,11 @@ int print_int(int n)
 {
 	int printed_chars = 0;
 
+	if (n == 0)
+	{
+		printed_chars += print_char('0');
+		return 1;
+	}
 	if (n < 0)
 	{
 		printed_chars += print_char('-');
