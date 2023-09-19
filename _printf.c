@@ -18,7 +18,7 @@ int print_char(int c)
  * @str: The string to be printed
  * Return: The number of characters printed
  */
-static int print_str(const char *str)
+int print_str(const char *str)
 {
 	int printed_chars = 0;
 
