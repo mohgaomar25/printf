@@ -9,7 +9,7 @@
  */
 static int print_char(int c)
 {
-        return (write(1, &c, 1));
+	return (write(1, &c, 1));
 }
 
 /**
@@ -19,16 +19,15 @@ static int print_char(int c)
  */
 static int print_str(const char *str)
 {
-        int printed_chars = 0;
+	int printed_chars = 0;
 
-        while (*str)
-        {
-                printed_chars += write(1, str, 1);
-                str++;
-        }
-        return (printed_chars);
+	while (*str)
+	{
+		printed_chars += write(1, str, 1);
+		str++;
+	}
+	return (printed_chars);
 }
-
 /**
  * _printf - Custom printf function
  * @format: The format string
