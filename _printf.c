@@ -82,7 +82,6 @@ int _printf(const char *format, ...)
 			else
 			{
 				printed_chars += print_char('%');
-				
 				if (*format)
 				printed_chars += print_char(*format);
 			}
