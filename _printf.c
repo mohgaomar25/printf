@@ -61,6 +61,7 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	int printed_chars = 0;
+	
 	va_start(args, format);
 
 	while (*format)
@@ -70,13 +71,13 @@ int _printf(const char *format, ...)
 		else
 		{
 			format++;
-			if (*format == 'c') 
+			if (*format == 'c')
 				printed_chars += print_char(va_arg(args, int));
-			else if (*format == 's') 
+			else if (*format == 's')
 				printed_chars += print_str(va_arg(args, char *));
-			else if (*format == '%') 
+			else if (*format == '%')
 				printed_chars += print_char('%');
-			else if (*format == 'd' || *format == 'i') 
+			else if (*format == 'd' || *format == 'i')
 				printed_chars += print_int(va_arg(args, int));
 			else 
 			{
