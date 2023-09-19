@@ -66,6 +66,9 @@ int _printf(const char *format, ...)
           printed_chars += print_int(num);
           break;
         */
+	  case 'i':
+          printed_chars += print_char(va_arg(args, int));
+	  break;
         default:
           printed_chars += print_char('%');
           if (*format)
