@@ -2,12 +2,41 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+/**
+ * print_char - Prints a single character to stdout
+ * @c: The character to be printed
+ * Return: The number of characters printed
+ */
+static int print_char(int c)
+{
+return (write(1, &c, 1));
+}
+
+/**
+ * print_str - Prints a string to stdout
+ * @str: The string to be printed
+ * Return: The number of characters printed
+ */
+static int print_str(const char *str)
+{
+int printed_chars = 0;
+while (*str)
+{
+printed_chars += write(1, str, 1);
+str++;
+}
+return (printed_chars);
+}
+
+/**
+ * _printf - Custom printf function
+ * @format: The format string
+ * Return: The number of characters printed
+ */
 int _printf(const char *format, ...)
 {
 va_list args;
 int printed_chars = 0;
-char c;
-char *str;
 
 va_start(args, format);
 
@@ -15,48 +44,34 @@ while (*format)
 {
 if (*format != '%')
 {
-write(1, format, 1); /* Print the character */
-printed_chars++;
+printed_chars += print_char(*format);
 }
 else
 {
-format++; /* Move past '%' */
+format++;
 switch (*format)
 {
 case 'c':
-c = va_arg(args, int);
-write(1, &c, 1);
-printed_chars++;
+printed_chars += print_char(va_arg(args, int));
 break;
 case 's':
-str = va_arg(args, char *);
-if (str == NULL)
-str = "(null)";
-while (*str)
-{
-write(1, str, 1);
-str++;
-printed_chars++;
-}
+printed_chars += print_str(va_arg(args, char *));
 break;
 case '%':
-write(1, "%", 1);
-printed_chars++;
+printed_chars += print_char('%');
 break;
 default:
-write(1, "%", 1); /* Print '%' as default */
-printed_chars++;
+printed_chars += print_char('%');
 if (*format)
 {
-write(1, format, 1); /* Print the unknown format specifier */
-printed_chars++;
+printed_chars += print_char(*format);
 }
 }
 }
-format++; /* Move to the next character in the format string */
+format++;
 }
 
 va_end(args);
 
-return printed_chars;
+return (printed_chars);
 }
