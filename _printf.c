@@ -42,7 +42,7 @@ int print_int(int n)
 	if (n == 0)
 	{
 		printed_chars += print_char('0');
-		return 1;
+		return (1);
 	}
 	if (n < 0)
 	{
