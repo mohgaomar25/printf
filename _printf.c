@@ -8,62 +8,54 @@
  *
  * Return: The number of characters printed (excluding the null byte).
  */
+#include "main.h"
+#include <stdarg.h>
+#include <unistd.h>
+
 int _printf(const char *format, ...)
 {
 va_list args;
 int printed_chars = 0;
-char c;
-char *str;
 
 va_start(args, format);
 
 while (*format)
 {
 if (*format != '%')
-{
-write(1, format, 1); /* Print the character */
-printed_chars++;
-}
+ /* Print the character */
+printed_chars += write(1, format, 1);
 else
 {
-format++; /* Move past '%' */
+format++;
+if (*format == '\0') // Handle trailing '%'
+break;
+
 switch (*format)
 {
 case 'c':
-c = va_arg(args, int);
-write(1, &c, 1);
-printed_chars++;
+printed_chars += write(1, &va_arg(args, int), 1);
 break;
 case 's':
-str = va_arg(args, char *);
-if (str == NULL)
-str = "(null)";
-while (*str)
 {
-write(1, str, 1);
-str++;
-printed_chars++;
+char *str = va_arg(args, char *);
+if (!str) str = "(null)";
+while (*str) printed_chars += write(1, str++, 1);
 }
 break;
 case '%':
-write(1, "%", 1);
-printed_chars++;
+printed_chars += write(1, "%", 1);
 break;
 default:
-write(1, "%", 1); /* Print '%' as default */
-printed_chars++;
-if (*format)
-{
-write(1, format, 1); /* Print the unknown format specifier */
-printed_chars++;
+/* Print '%' as default */
+printed_chars += write(1, "%", 1);
+/* Print the unknown format specifier */
+if (*format) printed_chars += write(1, format, 1);
 }
 }
-}
-format++; /* Move to the next character in the format string */
+/* Move to the next character in the format string */
+format++; 
 }
 
 va_end(args);
-
-return (printed_chars);
+return printed_chars;
 }
-
