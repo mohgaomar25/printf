@@ -48,7 +48,7 @@ static int print_int(int n)
     }
     printed_chars += print_char((n % 10) + '0');
 
-    return printed_chars;
+    return (printed_chars);
 }
 
 /**
