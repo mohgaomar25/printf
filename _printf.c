@@ -38,9 +38,7 @@ break;
 default:
 printed_chars += print_char('%');
 case 'i':
-/*Handle 'd' and 'i' specifiers*/
 int num = va_arg(args, int);
-/* You can use a separate function to print integers*/
 printed_chars += print_int(num);
 break;
 if (*format)
