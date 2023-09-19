@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
+#include <string.h>
 
 /**
  * print_char - Prints a single character to stdout
@@ -84,11 +85,13 @@ int _printf(const char *format, ...)
         case '%':
           printed_chars += print_char('%');
           break;
+	      
         case 'i':
           int num = va_arg(args, int);
           printed_chars += print_int(num);
           break;
-	 /* case 'i':
+	  
+	 /*case 'i':
           printed_chars += print_char(va_arg(args, int));
 	  break;*/
         default:
