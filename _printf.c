@@ -63,8 +63,7 @@ int _printf(const char *format, ...)
           break;
 	      
         case 'i':
-          int num = va_arg(args, int);
-          printed_chars += print_int(num);
+          printed_chars += print_int(va_arg(args, int));
           break;
 	  
 	 /*case 'i':
