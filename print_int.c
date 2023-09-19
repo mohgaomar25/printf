@@ -1,6 +1,4 @@
-#include "main.h"
 #include <unistd.h>
-#include <stdarg.h>
 
 /**
  * print_int - Prints an integer to stdout
