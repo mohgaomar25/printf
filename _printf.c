@@ -81,10 +81,11 @@ int _printf(const char *format, ...)
 			{
 				printed_chars += print_str(va_arg(args, char *));
 			}
+				/*
 			else if (*format == '%') 
 			{
 				printed_chars += print_char('%');
-			}
+			}*/
 			else if (*format == 'd' || *format == 'i') 
 			{ 
 				printed_chars += print_int(va_arg(args, int));
