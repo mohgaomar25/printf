@@ -35,12 +35,13 @@ break;
 case '%':
 printed_chars += print_char('%');
 break;
-default:
-printed_chars += print_char('%');
 case 'i':
 int num = va_arg(args, int);
+/* You can use a separate function to print integers*/
 printed_chars += print_int(num);
 break;
+default:
+printed_chars += print_char('%');
 if (*format)
 {
 printed_chars += print_char(*format);
