@@ -84,15 +84,13 @@ int _printf(const char *format, ...)
         case '%':
           printed_chars += print_char('%');
           break;
-        /**
         case 'i':
           int num = va_arg(args, int);
           printed_chars += print_int(num);
           break;
-        */
-	  case 'i':
+	 /* case 'i':
           printed_chars += print_char(va_arg(args, int));
-	  break;
+	  break;*/
         default:
           printed_chars += print_char('%');
           if (*format)
