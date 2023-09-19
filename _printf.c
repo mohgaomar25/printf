@@ -34,7 +34,7 @@ static int print_str(const char *str)
  * print_int - Prints an integer to stdout
  * @n: The integer to be printed
  * Return: The number of characters printed
- */
+ 
 static int print_int(int n)
 {
 	int printed_chars = 0;
@@ -52,6 +52,7 @@ static int print_int(int n)
 
 	return (printed_chars);
 }
+*/
 
 /**
  * _printf - Custom printf function
