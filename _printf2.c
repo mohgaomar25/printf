@@ -8,7 +8,7 @@
  * Return: int
  */
 
-int _printf(const char *format, ...)
+int _print(const char *format, ...)
 {
 	int number_to_print = 0;
 	va_list List_of_numbers;
