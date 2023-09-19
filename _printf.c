@@ -59,52 +59,52 @@ int print_int(int n)
  */
 int _printf(const char *format, ...)
 {
-  va_list args;
-  int printed_chars = 0;
+	va_list args;
+	int printed_chars = 0;
+	
+	va_start(args, format);
+	
+	while (*format)
+	{
+		if (*format != '%')
+		{
+			printed_chars += print_char(*format);
+		}
+		else
+		{
+			format++;
+			switch (*format)
+			{
+				case 'c':
+					printed_chars += print_char(va_arg(args, int));
+					break;
+				case 's':
+					printed_chars += print_str(va_arg(args, char *));
+					break;
+				case '%':
+					printed_chars += print_char('%');
+					break;
+				case 'd':
+					printed_chars += print_int(va_arg(args, int));
+					break;
+				case 'i':
+					printed_chars += print_int(va_arg(args, int));
+					break;
+				/*case 'i':
+    printed_chars += print_char(va_arg(args, int));
+    break;*/
+				default:
+					printed_chars += print_char('%');
+					if (*format)
+					{
+						printed_chars += print_char(*format);
+					}
+			}
+		}
+		format++;
+	}
 
-  va_start(args, format);
+	va_end(args);
 
-  while (*format)
-  {
-    if (*format != '%')
-    {
-      printed_chars += print_char(*format);
-    }
-    else
-    {
-      format++;
-      switch (*format)
-      {
-        case 'c':
-          printed_chars += print_char(va_arg(args, int));
-          break;
-        case 's':
-          printed_chars += print_str(va_arg(args, char *));
-          break;
-        case '%':
-          printed_chars += print_char('%');
-          break;
-        case 'd':
-          printed_chars += print_int(va_arg(args, int));
-          break;
-       	case 'i':
-          printed_chars += print_int(va_arg(args, int));
-          break;
-	 /*case 'i':
-          printed_chars += print_char(va_arg(args, int));
-	  break;*/
-        default:
-          printed_chars += print_char('%');
-          if (*format)
-          {
-            printed_chars += print_char(*format);
-          }
-      }
-    }
-    format++;
-  }
-
-  va_end(args);
-
-  return (printed_chars);
+	return (printed_chars);
 }
