@@ -21,6 +21,7 @@ int print_char(int c)
 static int print_str(const char *str)
 {
 	int printed_chars = 0;
+
 	while (*str)
 	{
 		printed_chars += write(1, str, 1);
@@ -37,7 +38,7 @@ static int print_str(const char *str)
 int print_int(int n)
 {
 	int printed_chars = 0;
-	
+
 	if (n < 0)
 	{
 		printed_chars += print_char('-');
@@ -48,7 +49,6 @@ int print_int(int n)
 		printed_chars += print_int(n / 10);
 	}
 	printed_chars += print_char((n % 10) + '0');
-	
 	return (printed_chars);
 }
 
@@ -61,9 +61,9 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	int printed_chars = 0;
-	
+
 	va_start(args, format);
-	
+
 	while (*format)
 	{
 		if (*format != '%')
