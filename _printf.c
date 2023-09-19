@@ -1,110 +1,62 @@
 #include "main.h"
+#include <stdarg.h>
+#include <unistd.h>
 
-/**
- * _printf - Custom printf function
- * @format: Format string
- *
- * Return: Number of characters printed
- */
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int count = 0;
+va_list args;
+int printed_chars = 0;
+char c;
+char *str;
 
-	if (format == NULL)
-		return (-1);
+va_start(args, format);
 
-	va_start(args, format);
-	count = parse_format(format, args);
-	va_end(args);
-
-	return (count);
+while (*format)
+{
+if (*format != '%')
+{
+write(1, format, 1); /* Print the character */
+printed_chars++;
+}
+else
+{
+format++; /* Move past '%' */
+switch (*format)
+{
+case 'c':
+c = va_arg(args, int);
+write(1, &c, 1);
+printed_chars++;
+break;
+case 's':
+str = va_arg(args, char *);
+if (str == NULL)
+str = "(null)";
+while (*str)
+{
+write(1, str, 1);
+str++;
+printed_chars++;
+}
+break;
+case '%':
+write(1, "%", 1);
+printed_chars++;
+break;
+default:
+write(1, "%", 1); /* Print '%' as default */
+printed_chars++;
+if (*format)
+{
+write(1, format, 1); /* Print the unknown format specifier */
+printed_chars++;
+}
+}
+}
+format++; /* Move to the next character in the format string */
 }
 
-/**
- * parse_format - Parse and print the format string
- * @format: Format string
- * @args: Arguments list
- *
- * Return: Number of characters printed
- */
-int parse_format(const char *format, va_list args)
-{
-	int i, count = 0;
-	char c;
+va_end(args);
 
-	for (i = 0; format[i] != '\0'; i++)
-	{
-		if (format[i] == '%')
-		{
-			i++;
-			if (format[i] == '\0')
-				return (-1);
-
-			c = format[i];
-			if (c == 'c')
-				count += print_char(args);
-			else if (c == 's')
-				count += print_string(args);
-			else if (c == '%')
-				count += _putchar('%');
-			else
-			{
-				_putchar('%');
-				_putchar(c);
-				count += 2;
-			
-			}
-			else
-			{
-				_putchar(format[i]);
-				count++;
-			}
-		}
-		return (count);
-}
-
-/**
- * print_char - Print a character
- * @args: Arguments list
- *
- * Return: Number of characters printed
- */
-int print_char(va_list args)
-{
-	char c = va_arg(args, int);
-	return (_putchar(c));
-}
-
-/**
- * print_string - Print a string
- * @args: Arguments list
- *
- * Return: Number of characters printed
- */
-int print_string(va_list args)
-{
-	char *str = va_arg(args, char *);
-	int i, count = 0;
-
-	if (str == NULL)
-		str = "(null)";
-
-	for (i = 0; str[i] != '\0'; i++)
-	{
-		_putchar(str[i]);
-		count++;
-	}
-	return (count);
-}
-
-/**
- * _putchar - Custom putchar function
- * @c: Character to print
- *
- * Return: 1 on success, -1 on error
- */
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
+return printed_chars;
 }
