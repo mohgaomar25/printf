@@ -61,6 +61,7 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	int printed_chars = 0;
+	
 	va_start(args, format);
 
 	while (*format)
@@ -81,8 +82,8 @@ int _printf(const char *format, ...)
 			else 
 			{
 				printed_chars += print_char('%');
-			      if (*format)
-				      printed_chars += print_char(*format);
+				if (*format)
+				printed_chars += print_char(*format);
 			}
 		}
 		format++; 
